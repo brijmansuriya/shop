@@ -1,0 +1,12 @@
+php artisan migrate
+
+
+
+php artisan view:clear
+php artisan config:clear
+php artisan route:clear
+php artisan cache:clear
+php artisan clear-compiled
+
+
+php artisan migrate --path=/database/migrations/2021_06_14_100819_create_expense_table.php
