@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin/category'], function () {
     Route::post('/save', [categoryController::class, 'save']);
     Route::get('/delete/{id}', [categoryController::class, 'delete']);
 });
+
+
 Route::group(['prefix' => 'admin/expense'], function () {
     Route::get('/', [expenseController::class, 'index']);
     Route::get('/add', [expenseController::class, 'add']);
