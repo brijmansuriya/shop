@@ -1,15 +1,29 @@
+
 @php
 $save = url('admin/expense/save');
-$page = 'expense';
+$page = 'Expense';
 $val_name = '';
+$val_cat_id = '';
+$val_date = '';
+$val_description = '';
+$val_amount = '';
+
 $val_id = '';
 $addedit = 'Add';
+
 if ($id != '') {
     $val_name = $data->name;
+    $val_cat_id = $data->cat_id;
+    $val_date = $data->date;
+    $val_description = $data->description;
+    $val_amount = $data->amount;
+
     $val_id = $data->id;
     $addedit = 'Edit';
 }
+
 @endphp
+@section('title', $addedit)
 @extends('layouts.app')
 @section('breadcrumb')
     <div class="topbar-left">
@@ -54,14 +68,14 @@ if ($id != '') {
                     <div class="col-md-6">
                         <fieldset class="form-group">
                         <label class="form-label semibold">Expense Name <b class="text-danger">*</b></label>
-                        <input type="text" required="" name="name" value="" id="name" placeholder="Enter Expense Name" class="form-control">
+                        <input type="text" required="" name="name" value="{{$val_name}}" id="name" placeholder="Enter Expense Name" class="form-control">
                         </fieldset>
                       </div>
 
                       <div class="col-md-6">
                         <fieldset class="form-group">
                         <label class="form-label semibold">Amount</label>
-                        <input type="text" name="amount" value="" id="amount" placeholder="Enter Amount" class="form-control">
+                        <input type="text" name="amount" value="{{$val_amount}}" id="amount" placeholder="Enter Amount" class="form-control">
                         </fieldset>
                       </div>
 
@@ -69,7 +83,7 @@ if ($id != '') {
                         <fieldset class="form-group">
                             <label class="form-label">Expense Date <b class="text-danger">*</b></label>
                             <div class="input-group date ">
-                                <input type="text" class="form-control hasDatepicker datetimepicker" required="" id="date" name="date" value="">
+                                <input type="text" class="form-control datetimepicker" required="" id="date" name="date" value="{{$val_date}}">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </fieldset>
@@ -83,7 +97,7 @@ if ($id != '') {
                             <select class="form-control select2-single" name="cat_id"  id="cat_id">
                                 <option value="">--- Select Category ---</option>
                                 @foreach($Categoryname as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{$item->id}}" @if($val_cat_id==$item->id) selected @endif>{{$item->name}}</option>
                                 @endforeach
                             </select>
                         </fieldset>
@@ -92,7 +106,7 @@ if ($id != '') {
                     <div class="col-lg-12">
                         <fieldset class="form-group">
                             <label class="form-label semibold"> Description</label>
-                        <textarea name="description" id="description" placeholder="Enter Description" class="form-control" style="height:100px;"></textarea>
+                        <textarea name="description" id="description" placeholder="Enter Description" class="form-control" style="height:100px;">{{$val_description}}</textarea>
                         </fieldset>
                         </div>
 
@@ -128,7 +142,8 @@ if ($id != '') {
                 }
             }
         });
-
+    </script>
+       <script>
         jQuery(document).ready(function() {
         Core.init();
         Demo.init();

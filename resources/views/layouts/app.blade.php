@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tital</title>
+    <title> @yield('title')</title>
     <meta name="keywords" content="" />
     <meta name="description" content="">
     <meta name="author" content="AdminDesigns">

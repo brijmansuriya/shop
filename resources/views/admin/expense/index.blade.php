@@ -1,6 +1,8 @@
+
 @php
-   $page="expense" ;
+   $page="Expense" ;
 @endphp
+@section('title', $page)
 @extends('layouts/app')
 @section('css')
 
@@ -60,14 +62,14 @@
                        
 
                         @foreach ($expensedata as $list)
-                      
+                    
                             @php
                                 $i++;
                             @endphp
                             <tr>
                                 <td >{{ $i }}</td>
                                 <td >{{ $list->name }}</td>
-                                <td >{{ $list->cetname }}</td>
+                                <td >{{ $list->category->name }}</td>
                                 <td >{{ $list->date }}</td>
                                 <td >{{ $list->amount }}</td>
                                
@@ -125,7 +127,7 @@
             if (e.value === true) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                window.location.href = "{{url('admin/category/delete/')}}/" + id
+                window.location.href = "{{url('admin/expense/delete/')}}/" + id
                 
             } else {
                 swal({

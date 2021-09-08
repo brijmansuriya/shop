@@ -20,5 +20,9 @@ class ExpenseModel extends Model
     //     ->where(['something' => 'something', 'otherThing' => 'otherThing'])
     //     ->get();
     // }
+
+    public function Category(){
+        return $this->belongsTo('App\Models\Admin\CategoryModel','cat_id')->select('id','name');
+    }
 }
 

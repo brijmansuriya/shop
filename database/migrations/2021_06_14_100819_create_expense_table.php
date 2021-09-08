@@ -17,7 +17,7 @@ class CreateexpenseTable extends Migration
             $table->id();
             $table->Integer('cat_id')->nullable();
             $table->string('name')->nullable();
-            $table->date('date')->nullable();
+            $table->string('date')->nullable();
             $table->text('description')->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->tinyInteger('isdelete')->default('0');
