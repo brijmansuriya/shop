@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\categoryController;
 use App\Http\Controllers\Admin\expenseController;
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin/expense'], function () {
     Route::post('/save', [expenseController::class, 'save']);
     Route::get('/delete/{id}', [expenseController::class, 'delete']);
 });
+
 Route::group(['prefix' => 'admin/agent'], function () {
     Route::get('/', [AgentController::class, 'index']);
     Route::get('/add', [AgentController::class, 'add']);
@@ -60,10 +61,19 @@ Route::group(['prefix' => 'admin/agent'], function () {
     Route::get('/delete/{id}', [AgentController::class, 'delete']);
 });
 
+Route::group(['prefix' => 'admin/customer'], function () {
+    Route::get('/', [AgentController::class, 'index']);
+    Route::get('/add', [AgentController::class, 'add']);
+    Route::get('/add/{id}', [AgentController::class, 'add']);
+    Route::post('/save', [AgentController::class, 'save']);
+    Route::get('/delete/{id}', [AgentController::class, 'delete']);
+});
 
-//Aditional add on 
 
-Route::get('mi', function () {
+
+//Aditional add on
+
+Route::get('mi00', function () {
     Artisan::call('migrate');
     return 'Database migration success.';
 });
