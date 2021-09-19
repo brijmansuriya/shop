@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\categoryController;
 use App\Http\Controllers\Admin\expenseController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,11 +63,11 @@ Route::group(['prefix' => 'admin/agent'], function () {
 });
 
 Route::group(['prefix' => 'admin/customer'], function () {
-    Route::get('/', [AgentController::class, 'index']);
-    Route::get('/add', [AgentController::class, 'add']);
-    Route::get('/add/{id}', [AgentController::class, 'add']);
-    Route::post('/save', [AgentController::class, 'save']);
-    Route::get('/delete/{id}', [AgentController::class, 'delete']);
+    Route::get('/', [CustomerController::class, 'index']);
+    Route::get('/add', [CustomerController::class, 'add']);
+    Route::get('/add/{id}', [CustomerController::class, 'add']);
+    Route::post('/save', [CustomerController::class, 'save']);
+    Route::get('/delete/{id}', [CustomerController::class, 'delete']);
 });
 
 

@@ -9,49 +9,46 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-
-    // private $table = 'tbl_expense';
-
+    private $url = "admin/customer/";
     public function __construct()
     {
-        
         $this->middleware('auth');
     }
+
     public function index()
     {
-        $result['Customerdata'] = CustomerModel::where('isdelete', 0)->get();
-        // prm($result['expensedata']);exit;
-        return view('admin/Customer/index', $result);
+        $result['customerdata'] = CustomerModel::where('isdelete', 0)->get();
+        return view($this->url . 'index', $result);
     }
+
     public function add($id = '')
     {
-      
         if ($id != '') {
             $result['id'] = $id;
             $result['data'] = CustomerModel::where('id', $id)->get()->first();
-            return view('admin/Customer/add', $result);
+            return view($this->url . 'add', $result);
         }
         $result['id'] = '';
-        return view('admin/Customer/add', $result);
+        return view($this->url . 'add', $result);
     }
+
     public function save(Request $Request)
     {
-      
         $Request->validate([
-            'Customer_name' => 'required|unique:tbl_Customer,Customer_name,' . $Request->id,
+            'customer_name' => 'required|unique:tbl_customer,customer_name,' . $Request->id,
             'mobile' => 'required',
             'address' => 'required',
 
         ]);
-
-
-
         $id = $Request->id;
         if ($id != '') {
             $CustomerModel = CustomerModel::find($id);
-            $CustomerModel->Customer_name = StringRepair($Request->Customer_name);
+            $CustomerModel->customer_name = StringRepair($Request->customer_name);
             $CustomerModel->email = StringRepair($Request->email);
             $CustomerModel->mobile = StringRepair($Request->mobile);
+            $CustomerModel->gst = StringRepair($Request->gst);
+            $CustomerModel->pin = StringRepair($Request->pin);
+            $CustomerModel->city = StringRepair($Request->city);
             $CustomerModel->address = StringRepair($Request->address);
             $CustomerModel->description = StringRepair($Request->description);
             $CustomerModel->created_by = Auth::user()->id;
@@ -59,19 +56,23 @@ class CustomerController extends Controller
             $message = 'updated Successfully';
         } else {
             $CustomerModel = new CustomerModel();
-            $CustomerModel->Customer_name = StringRepair($Request->Customer_name);
+            $CustomerModel->customer_name = StringRepair($Request->customer_name);
             $CustomerModel->email = StringRepair($Request->email);
             $CustomerModel->mobile = StringRepair($Request->mobile);
             $CustomerModel->address = StringRepair($Request->address);
             $CustomerModel->description = StringRepair($Request->description);
+            $CustomerModel->gst = StringRepair($Request->gst);
+            $CustomerModel->pin = StringRepair($Request->pin);
+            $CustomerModel->city = StringRepair($Request->city);
             $CustomerModel->isdelete = 0;
             $CustomerModel->created_by = Auth::user()->id;
             $CustomerModel->save();
             $message = 'Added Successfully';
         }
         $Request->session()->flash('message', $message);
-        return redirect('admin/Customer');
+        return redirect($this->url);
     }
+
     public function delete($id)
     {
         $CustomerModel = CustomerModel::find($id);
@@ -80,7 +81,7 @@ class CustomerController extends Controller
         $CustomerModel->save();
         $message = 'Delete Successfully';
         session()->flash('message', $message);
-        return redirect('admin/Customer');
+        return redirect($this->url);
     }
 
 }
