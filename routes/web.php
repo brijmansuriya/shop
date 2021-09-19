@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\categoryController;
-use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\expenseController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +16,9 @@ use App\Http\Controllers\Admin\expenseController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::view('/','welcome')->middleware(['auth']);
+Route::view('/', 'welcome')->middleware(['auth']);
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -26,8 +28,6 @@ Route::get('/clr', function () {
     $exitCode = Artisan::call('config:cache');
     $exitCode = Artisan::call('view:clear');
 });
-
-
 
 Route::group(['prefix' => 'admin/settings'], function () {
     Route::get('/', [SettingsController::class, 'index']);
@@ -45,11 +45,25 @@ Route::group(['prefix' => 'admin/category'], function () {
     Route::get('/delete/{id}', [categoryController::class, 'delete']);
 });
 
-
 Route::group(['prefix' => 'admin/expense'], function () {
     Route::get('/', [expenseController::class, 'index']);
     Route::get('/add', [expenseController::class, 'add']);
     Route::get('/add/{id}', [expenseController::class, 'add']);
     Route::post('/save', [expenseController::class, 'save']);
     Route::get('/delete/{id}', [expenseController::class, 'delete']);
+});
+Route::group(['prefix' => 'admin/agent'], function () {
+    Route::get('/', [AgentController::class, 'index']);
+    Route::get('/add', [AgentController::class, 'add']);
+    Route::get('/add/{id}', [AgentController::class, 'add']);
+    Route::post('/save', [AgentController::class, 'save']);
+    Route::get('/delete/{id}', [AgentController::class, 'delete']);
+});
+
+
+//Aditional add on 
+
+Route::get('mi', function () {
+    Artisan::call('migrate');
+    return 'Database migration success.';
 });
