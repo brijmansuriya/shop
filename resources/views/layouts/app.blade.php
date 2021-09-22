@@ -138,6 +138,12 @@
                         <span class="sidebar-title">Customer</span>
                         </a>
                     </li>
+                    <li class="">
+                        <a href=" {{ url('admin/vendors') }}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="sidebar-title">Vendor</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="sidebar-toggle-mini">
                     <a href="#">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\categoryController;
 use App\Http\Controllers\Admin\expenseController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\VendorsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::view('/', 'welcome')->middleware(['auth']);
+Route::get('/',  [HomeController::class, 'index'])->middleware(['auth']);
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -68,6 +69,13 @@ Route::group(['prefix' => 'admin/customer'], function () {
     Route::get('/add/{id}', [CustomerController::class, 'add']);
     Route::post('/save', [CustomerController::class, 'save']);
     Route::get('/delete/{id}', [CustomerController::class, 'delete']);
+});
+Route::group(['prefix' => 'admin/vendors'], function () {
+    Route::get('/', [VendorsController::class, 'index']);
+    Route::get('/add', [VendorsController::class, 'add']);
+    Route::get('/add/{id}', [VendorsController::class, 'add']);
+    Route::post('/save', [VendorsController::class, 'save']);
+    Route::get('/delete/{id}', [VendorsController::class, 'delete']);
 });
 
 
