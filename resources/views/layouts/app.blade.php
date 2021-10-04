@@ -9,10 +9,12 @@
     <meta name="author" content="AdminDesigns">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/skin/default_skin/css/theme.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/skin/default_skin/css/custom.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/skin/default_skin/css/custom.css') }}"> --}}
     <link rel="stylesheet" type="text/css"
         href="{{ asset('admin/assets/admin-tools/admin-forms/css/admin-forms.css') }}">
     <link rel="shortcut icon" href="{{ asset('admin/assets/img/favicon.ico') }}">
+    
+    <link rel="stylesheet" href="{{ asset('admin/vendor/sw/sweetalert2.min.css') }}">
     @yield('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/skin/default_skin/css/custom.css') }}">
 </head>
@@ -144,6 +146,12 @@
                         <span class="sidebar-title">Vendor</span>
                         </a>
                     </li>
+                    <li class="">
+                        <a href=" {{ url('admin/product') }}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="sidebar-title">Product</span>
+                        </a>
+                    </li>
                 </ul>
                 <div class="sidebar-toggle-mini">
                     <a href="#">
@@ -174,6 +182,7 @@
                 </div>
             </footer>
         </section>
+        
     </div>
     <!-- jQuery -->
     <script src="{{ asset('admin/vendor/jquery/jquery-3.1.1.min.js') }}"></script>
@@ -189,6 +198,9 @@
     <script src="{{ asset('admin/assets/js/utility/utility.js') }}"></script>
     <script src="{{ asset('admin/assets/js/demo/demo.js') }}"></script>
     <script src="{{ asset('admin/assets/js/main.js') }}"></script>
+
+   
+<script src="{{ asset('admin/vendor/sw/sweetalert2.all.min.js') }}"></script>
     <!-- Widget Javascript -->
     {{-- <script src="{{ asset('admin/assets/js/demo/widgets.js') }}"></script> --}}
     <script type="text/javascript">
@@ -199,6 +211,7 @@
             // Init Theme Core      
             Core.init();
 
+           
 
             // Init Admin Panels on widgets inside the ".admin-panels" container
             $('.admin-panels').adminpanel({

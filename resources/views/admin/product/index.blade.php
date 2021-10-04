@@ -1,10 +1,12 @@
 @php
-$page = 'Vendor';
+$page = 'Product';
 @endphp
 @section('title', $page)
 @extends('layouts/app')
 @section('css')
-<link rel="stylesheet" href="{{ asset('admin/vendor/plugins/datatables/media/css/dataTables.bootstrap4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('admin\vendor\plugins\datatables\media\css\dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin\vendor\sw\sweetalert2.min.css') }}">
 @endsection
 @section('content')
 @section('breadcrumb')
@@ -12,14 +14,14 @@ $page = 'Vendor';
         <ol class="breadcrumb">
             <span class="glyphicon glyphicon-globe mr10" style="font-size: 14px;"></span>
             <li class="crumb-active">
-                <a href="{{ url('admin/vendors/') }}">
+                <a href="{{ url('admin/product/') }}">
                     <span>{{ $page }}</span>
                 </a>
             </li>
         </ol>
     </div>
     <div class="topbar-right">
-        <a href="{{ url('admin/vendors/add') }}" class="btn btn-default btn-sm light fw600 ml10">
+        <a href="{{ url('admin/product/add') }}" class="btn btn-default btn-sm light fw600 ml10">
             <span class="fa fa-plus pr5"></span>Add {{ $page }} </a>
     </div>
 @endsection
@@ -44,11 +46,12 @@ $page = 'Vendor';
                     <table class="table table-striped table-hover" id="datatable2" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Vendors Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Action</th>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>HSN Code</th>
+                                <th>Purchase Price</th>
+                                <th>Selling Price</th>
+                                <th>Dead Stock</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,18 +59,19 @@ $page = 'Vendor';
                                 $i = 0;
                             @endphp
                             
-                            @foreach ($vendorsdata as $list)
+                            @foreach ($productdata as $list)
                                 @php
                                     $i++;
                                 @endphp
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $list->vendor_name }}</td>
-                                    <td>{{ $list->email }}</td>
-                                    <td>{{ $list->mobile }}</td>
+                                    <td>{{ $list->name }}</td>
+                                    <td>{{ $list->hsn_code }}</td>
+                                    <td>{{ $list->purchase_price}}</td>
+                                    <td>{{ $list->selling_price}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ url('admin/vendors/add/') }}/{{ $list->id }}"
+                                            <a href="{{ url('admin/customer/add/') }}/{{ $list->id }}"
                                                 class="btn btn-warning btn-xs">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -98,11 +102,15 @@ $page = 'Vendor';
 
 @endsection
 @section('js')
-
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-<script src="{{ asset('admin/vendor/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin/vendor/plugins/datatables/media/js/dataTables.bootstrap4.min.js') }}"></script>
-
+<script src="{{ asset('admin\vendor\plugins\datatables\media\js\jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin\vendor\plugins\datatables\media\js\dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin\vendor\sw\sweetalert2.all.min.js') }}"></script>
 <script>
     function deleteConfirmation(id) {
         swal({
@@ -118,7 +126,7 @@ $page = 'Vendor';
             if (e.value === true) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                window.location.href = "{{ url('admin/vendors/delete/') }}/" + id
+                window.location.href = "{{ url('admin/customer/delete/') }}/" + id
 
             } else {
                 swal({
@@ -133,7 +141,8 @@ $page = 'Vendor';
             return false;
         })
     }
-
+</script>
+<script>
     $('#datatable2').dataTable({
         dom: "Bfrtip",
         dom: "rtip",
@@ -141,7 +150,6 @@ $page = 'Vendor';
         // select: true
     });
 </script>
-
 
 @if (session()->has('message'))
     <script type="text/javascript">

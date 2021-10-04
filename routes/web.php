@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\expenseController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\VendorsController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +79,13 @@ Route::group(['prefix' => 'admin/vendors'], function () {
     Route::get('/delete/{id}', [VendorsController::class, 'delete']);
 });
 
+Route::group(['prefix' => 'admin/product'], function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/add', [ProductController::class, 'add']);
+    Route::get('/add/{id}', [ProductController::class, 'add']);
+    Route::post('/save', [ProductController::class, 'save']);
+    Route::get('/delete/{id}', [ProductController::class, 'delete']);
+});
 
 
 //Aditional add on
